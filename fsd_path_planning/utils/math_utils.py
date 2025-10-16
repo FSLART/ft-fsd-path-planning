@@ -11,7 +11,17 @@ Project: fsd_path_planning
 from typing import TypeVar, cast
 
 import numpy as np
-from numba import jit
+
+try:
+    from numba import jit
+except ImportError:
+
+    def jit(**kwargs):
+        def wrapper(func):
+            return func
+
+        return wrapper
+
 
 T = TypeVar("T")
 
